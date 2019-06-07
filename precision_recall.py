@@ -32,7 +32,7 @@ def batch_pairwise_distances(U, V):
 #----------------------------------------------------------------------------
 
 class DistanceBlock():
-    """Distance block."""
+    """Provides multi-GPU support to calculate pairwise distances between two batches of feature vectors."""
     def __init__(self, num_features, num_gpus):
         self.num_features = num_features
         self.num_gpus = num_gpus
@@ -57,9 +57,22 @@ class DistanceBlock():
 class ManifoldEstimator():
     """Estimates the manifold of given feature vectors."""
 
-    def __init__(self, distance_block, features, row_batch_size=10000, col_batch_size=50000,
+    def __init__(self, distance_block, features, row_batch_size=25000, col_batch_size=50000,
                  nhood_sizes=[3], clamp_to_percentile=None, eps=1e-5):
-        """Estimate the manifold of given feature vectors."""
+        """Estimate the manifold of given feature vectors.
+        
+            Args:
+                distance_block: DistanceBlock object that distributes pairwise distance
+                    calculation to multiple GPUs.
+                features (np.array/tf.Tensor): Matrix of feature vectors to estimate their manifold.
+                row_batch_size (int): Row batch size to compute pairwise distances
+                    (parameter to trade-off between memory usage and performance).
+                col_batch_size (int): Column batch size to compute pairwise distances.
+                nhood_sizes (list): Number of neighbors used to estimate the manifold.
+                clamp_to_percentile (float): Prune hyperspheres that have radius larger than
+                    the given percentile.
+                eps (float): Small number for numerical stability.
+        """
         num_images = features.shape[0]
         self.nhood_sizes = nhood_sizes
         self.num_nhoods = len(nhood_sizes)
@@ -134,7 +147,21 @@ class ManifoldEstimator():
 
 def knn_precision_recall_features(ref_features, eval_features, nhood_sizes=[3],
                                   row_batch_size=25000, col_batch_size=50000, num_gpus=1):
-    """Calculates k-NN precision and recall for two sets of feature vectors."""
+    """Calculates k-NN precision and recall for two sets of feature vectors.
+    
+        Args:
+            ref_features (np.array/tf.Tensor): Feature vectors of reference images.
+            eval_features (np.array/tf.Tensor): Feature vectors of generated images.
+            nhood_sizes (list): Number of neighbors used to estimate the manifold.
+            row_batch_size (int): Row batch size to compute pairwise distances
+                (parameter to trade-off between memory usage and performance).
+            col_batch_size (int): Column batch size to compute pairwise distances.
+            num_gpus (int): Number of GPUs used to evaluate precision and recall.
+
+        Returns:
+            State (dict): Dict that contains precision and recall calculated from
+            ref_features and eval_features.
+    """
     state = dict()
     num_images = ref_features.shape[0]
     num_features = ref_features.shape[1]

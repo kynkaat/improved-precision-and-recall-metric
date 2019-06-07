@@ -4,7 +4,7 @@
 ![License CC BY-NC](https://img.shields.io/badge/license-CC_BY--NC-green.svg?style=plastic)
 
 ![Teaser image](./teaser-image.png)
-**Picture:** *Low and high quality BigGAN samples according to our realism score. Images were selected from 1000 non-truncated samples.*
+**Picture:** *Left: StyleGAN samples with various amounts of truncation. Right: Precision and recall of StyleGAN as a function of truncation parameter psi.*
 
 > **Improved Precision and Recall Metric for Assessing Generative Models**<br>
 > Tuomas Kynkäänniemi, Tero Karras, Samuli Laine, Jaakko Lehtinen, and Timo Aila<br>
@@ -16,17 +16,31 @@
 
 This repository provides code for reproducing StyleGAN truncation sweep and realism score experiments. This code was tested with Python 3.6, Tensorflow 1.12 and NVIDIA V100 GPU.
 
-To run the below code examples, you need to obtain the FFHQ dataset in TFRecords format.  You can download it from [Flickr-Faces-HQ repository](http://stylegan.xyz/ffhq).
+To run the below code examples, you need to obtain the FFHQ dataset in TFRecords format. You can download it from [Flickr-Faces-HQ repository](http://stylegan.xyz/ffhq).
 
 ### Truncation sweep
 
-Precision and Recall during StyleGAN truncation sweep can be evaluated with:
+Precision and Recall of StyleGAN truncation sweep can be evaluated with:
 
 ```
 python run_metric.py --data_dir <path_to_ffhq_tfrecords> --truncation_sweep
 ```
 
-Running the above command takes approximately 30 minutes per iteration and it outputs results to `stylegan_truncation.txt` file.
+Running the above command takes approximately 30 minutes per iteration and it outputs results to `stylegan_truncation.txt` file. This command replicates results from Fig. 4. Reference output is:
+
+```
+Truncation 1.0
+Precision: 0.722
+Recall: 0.399
+
+Truncation 0.7
+Precision: 0.812
+Recall: 0.229
+
+Truncation 0.3
+Precision: 0.895
+Recall: 0.012
+```
 
 ### Realism score
 
@@ -36,14 +50,14 @@ Evaluation of realism score using StyleGAN and FFHQ dataset can be run with:
 python run_metric.py --data_dir <path_to_ffhq_tfrecords> --realism_score
 ```
 
-Running the above command takes approximately 15 minutes and it saves 25 low and high quality samples ranked according to our realism score.
+Running the above command takes approximately 15 minutes and it saves 64 low and high quality samples ranked according to our realism score. This command reproduces Fig. 11. Reference low and high quality samples can be found from [StyleGAN realism score](https://drive.google.com/open?id=1Dkapp3cw_Or9Nam_urwdQKdf5B9huUSW).
 
 ## Licenses
 
-All material is made available under [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/)license by NVIDIA Corporation. You can **use, redistribute, and adapt** the material for **non-commercial purposes**, as long as you give appropriate credit by **citing our paper** and **indicating any changes** that you've made.
+All material is made available under [Creative Commons BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/) license by NVIDIA Corporation. You can **use, redistribute, and adapt** the material for **non-commercial purposes**, as long as you give appropriate credit by **citing our paper** and **indicating any changes** that you've made.
 
 `karras2019stylegan-ffhq-1024x1024.pkl` is by Tero Karras, Samuli Laine and Timo Aila.
-The network was originally shared under Creative Commons BY 4.0 license on [Style-Based Generator
+The network was originally shared under Creative Commons BY-NC 4.0 license on [Style-Based Generator
 Architecture for Generative Adversarial Networks](https://github.com/NVlabs/stylegan) project page.
 
 `vgg16.pkl` is derived from the pre-trained [VGG-16](https://arxiv.org/abs/1409.1556) network by Karen Simonyan and Andrew Zisserman. The network was originally shared under [Creative Commons BY 4.0](https://creativecommons.org/licenses/by/4.0/) license on the [Very Deep Convolutional Networks for Large-Scale Visual Recognition](http://www.robots.ox.ac.uk/~vgg/research/very_deep/) project page.

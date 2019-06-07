@@ -18,16 +18,12 @@ BASE_PATH = os.path.dirname(__file__)
 
 #----------------------------------------------------------------------------
 
-_tf_config = {'graph_options.place_pruned_graph': True, 'gpu_options.allow_growth': True}
-
-#----------------------------------------------------------------------------
-
 def init_tf(random_seed=1234):
     """Initialize TF."""
     print('Initializing TensorFlow...\n')
     np.random.seed(random_seed)
-    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '1'
-    tfutil.init_tf(_tf_config)
+    tfutil.init_tf({'graph_options.place_pruned_graph': True,
+                    'gpu_options.allow_growth': True})
 
 #----------------------------------------------------------------------------
 
