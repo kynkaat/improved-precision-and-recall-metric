@@ -39,8 +39,8 @@ class DistanceBlock():
 
         # Initialize TF graph to calculate pairwise distances.
         with tf.device('/cpu:0'):
-            self._features_batch1 = tf.placeholder(tf.float16, shape=[None, self.num_features])
-            self._features_batch2 = tf.placeholder(tf.float16, shape=[None, self.num_features])
+            self._features_batch1 = tf.placeholder(tf.float32, shape=[None, self.num_features])
+            self._features_batch2 = tf.placeholder(tf.float32, shape=[None, self.num_features])
             features_split2 = tf.split(self._features_batch2, self.num_gpus, axis=0)
             distances_split = []
             for gpu_idx in range(self.num_gpus):
@@ -83,8 +83,8 @@ class ManifoldEstimator():
         self._distance_block = distance_block
 
         # Estimate manifold of features by calculating distances to k-NN of each sample.
-        self.D = np.zeros([num_images, self.num_nhoods], dtype=np.float16)
-        distance_batch = np.zeros([row_batch_size, num_images], dtype=np.float16)
+        self.D = np.zeros([num_images, self.num_nhoods], dtype=np.float32)
+        distance_batch = np.zeros([row_batch_size, num_images], dtype=np.float32)
         seq = np.arange(max(self.nhood_sizes) + 1, dtype=np.int32)
 
         for begin1 in range(0, num_images, row_batch_size):
@@ -146,7 +146,7 @@ class ManifoldEstimator():
 #----------------------------------------------------------------------------
 
 def knn_precision_recall_features(ref_features, eval_features, nhood_sizes=[3],
-                                  row_batch_size=25000, col_batch_size=50000, num_gpus=1):
+                                  row_batch_size=10000, col_batch_size=50000, num_gpus=1):
     """Calculates k-NN precision and recall for two sets of feature vectors.
     
         Args:

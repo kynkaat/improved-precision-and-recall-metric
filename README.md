@@ -30,16 +30,16 @@ Running the above command takes approximately 30 minutes per iteration and it ou
 
 ```
 Truncation 1.0
-Precision: 0.722
-Recall: 0.399
+Precision: 0.720
+Recall: 0.393
 
 Truncation 0.7
-Precision: 0.812
-Recall: 0.229
+Precision: 0.811
+Recall: 0.223
 
 Truncation 0.3
-Precision: 0.895
-Recall: 0.012
+Precision: 0.892
+Recall: 0.015
 ```
 
 ### Realism score
