@@ -1,16 +1,16 @@
-## Improved Precision and Recall Metric for Assessing Generative Models &mdash; Official TensorFlow Implementation 
+## Improved Precision and Recall Metric for Assessing Generative Models &mdash; Official TensorFlow Implementation
+
 ![Python 3.6](https://img.shields.io/badge/python-3.6-green.svg?style=plastic)
 ![TensorFlow 1.12](https://img.shields.io/badge/tensorflow-1.12-green.svg?style=plastic)
 ![License CC BY-NC](https://img.shields.io/badge/license-CC_BY--NC-green.svg?style=plastic)
 
 ![Teaser image](./teaser-image.png)
-**Picture:** *Left: StyleGAN samples with various amounts of truncation. Right: Precision and recall of StyleGAN as a function of truncation parameter psi.*
+**Picture:** _Left: StyleGAN samples with various amounts of truncation. Right: Precision and recall of StyleGAN as a function of truncation parameter psi._
 
 > **Improved Precision and Recall Metric for Assessing Generative Models**<br>
-> Tuomas Kynkäänniemi, Tero Karras, Samuli Laine, Jaakko Lehtinen, and Timo Aila<br>
-> [Paper (arXiv)](https://arxiv.org/abs/1904.06991)
+> Tuomas Kynkäänniemi, Tero Karras, Samuli Laine, Jaakko Lehtinen, and Timo Aila<br> > [Paper (arXiv)](https://arxiv.org/abs/1904.06991)
 >
-> **Abstract:** *The ability to evaluate the performance of a computational model is a vital requirement for driving algorithm research. This is often particularly difficult for generative models such as generative adversarial networks (GAN) that model a data manifold only specified indirectly by a finite set of training examples. In the common case of image data, the samples live in a high-dimensional embedding space with little structure to help assessing either the overall quality of samples or the coverage of the underlying manifold. We present an evaluation metric with the ability to separately and reliably measure both of these aspects in image generation tasks by forming explicit non-parametric representations of the manifolds of real and generated data. We demonstrate the effectiveness of our metric in StyleGAN and BigGAN by providing several illustrative examples where existing metrics yield uninformative or contradictory results. Furthermore, we analyze multiple design variants of StyleGAN to better understand the relationships between the model architecture, training methods, and the properties of the resulting sample distribution. In the process, we identify new variants that improve the state-of-the-art. We also perform the first principled analysis of truncation methods and identify an improved method. Finally, we extend our metric to estimate the perceptual quality of individual samples, and use this to study latent space interpolations.*
+> **Abstract:** _The ability to evaluate the performance of a computational model is a vital requirement for driving algorithm research. This is often particularly difficult for generative models such as generative adversarial networks (GAN) that model a data manifold only specified indirectly by a finite set of training examples. In the common case of image data, the samples live in a high-dimensional embedding space with little structure to help assessing either the overall quality of samples or the coverage of the underlying manifold. We present an evaluation metric with the ability to separately and reliably measure both of these aspects in image generation tasks by forming explicit non-parametric representations of the manifolds of real and generated data. We demonstrate the effectiveness of our metric in StyleGAN and BigGAN by providing several illustrative examples where existing metrics yield uninformative or contradictory results. Furthermore, we analyze multiple design variants of StyleGAN to better understand the relationships between the model architecture, training methods, and the properties of the resulting sample distribution. In the process, we identify new variants that improve the state-of-the-art. We also perform the first principled analysis of truncation methods and identify an improved method. Finally, we extend our metric to estimate the perceptual quality of individual samples, and use this to study latent space interpolations._
 
 ## Usage
 
@@ -50,7 +50,7 @@ Evaluation of realism score using StyleGAN and FFHQ dataset can be run with:
 python run_metric.py --data_dir <path_to_ffhq_tfrecords> --realism_score
 ```
 
-Running the above command takes approximately 15 minutes and it saves 64 low and high quality samples ranked according to our realism score. This command reproduces Fig. 11. Reference low and high quality samples can be found from [StyleGAN realism score](https://drive.google.com/open?id=1Dkapp3cw_Or9Nam_urwdQKdf5B9huUSW).
+Running the above command takes approximately 15 minutes and it saves 64 low and high quality samples ranked according to our realism score. This command reproduces Fig. 11. Reference low and high quality samples can be found from [StyleGAN realism score](https://drive.google.com/drive/folders/1jiO1QKTOHEemcADSzyQtKgIwNB9ubjbf?usp=sharing).
 
 ## Licenses
 
